@@ -1,8 +1,11 @@
 class Unknown:
-    def __init__(self,name,value):
+    def __init__(self, name, value):
         self.name = name
         self.value = value
-    
+        self.valueSpace=None
+        self.numberSpace=None
+        self.powerSpace=None
+
     def add(b):
         pass
 
@@ -14,7 +17,7 @@ class Unknown:
 
     def scalar(k):
         pass
-    
+
     def devides(b):
         pass
 
