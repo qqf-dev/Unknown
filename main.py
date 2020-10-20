@@ -1,6 +1,7 @@
-import Unknown as U
+import Unknown as Un
 
 if __name__ == "__main__":
-    a = U.Unknown("a", "p")
+    a = Un.Unknown("a")
     a.printHello()
+    print(type(object))
     print("success")

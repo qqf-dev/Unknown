@@ -1,28 +1,40 @@
-class Unknown:
-    def __init__(self, name, value):
-        self.name = name
+import TNumber
+
+from enum import Enum
+
+
+class Mark(Enum):
+    Add = '+'
+    Sub = '-'
+    Mul = '*'
+    Div = '/'
+    Pow = '^'
+
+
+class Unknown(TNumber.TNumber):
+    def __init__(self, value):
         self.value = value
-        self.valueSpace=None
-        self.numberSpace=None
-        self.powerSpace=None
+        self.valueSpace = None
+        self.numberSpace = None
+        self.powerSpace = None
 
-    def add(b):
+    def add(self, b):
         pass
 
-    def minus(b):
+    def minus(self, b):
         pass
 
-    def times(b):
+    def times(self, b):
         pass
 
-    def scalar(k):
+    def scalar(self, k):
         pass
 
-    def devides(b):
+    def divides(self, b):
         pass
 
-    def power(k):
+    def power(self, k):
         pass
 
     def printHello(self):
-        print("Hello " + self.name)
+        print("Hello " + self.value)
