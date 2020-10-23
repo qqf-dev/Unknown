@@ -1,22 +1,16 @@
-import TNumber
-
-from enum import Enum
+from ValueTree import *
 
 
-class Mark(Enum):
-    Add = '+'
-    Sub = '-'
-    Mul = '*'
-    Div = '/'
-    Pow = '^'
+class Unknown(TNumber):
+    name = ""
+    name_num = ord('a')
 
-
-class Unknown(TNumber.TNumber):
     def __init__(self, value):
-        self.value = value
-        self.valueSpace = None
-        self.numberSpace = None
-        self.powerSpace = None
+        super().__init__(value)
+        if isinstance(value, str):
+            self.value_tree = ValueTree(value)
+            self.value = self.value_tree.out()
+            self.size = self.value_tree.get_size()
 
     def add(self, b):
         pass
@@ -36,5 +30,12 @@ class Unknown(TNumber.TNumber):
     def power(self, k):
         pass
 
-    def printHello(self):
-        print("Hello " + self.value)
+    def out(self):
+        if self.size == 1:
+            self.name = self.value
+        else:
+            self.name = chr(self.name_num)
+
+    def print_hello(self):
+        self.out()
+        print("Hello " + self.name)
