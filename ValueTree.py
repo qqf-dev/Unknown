@@ -163,6 +163,57 @@ class BTree:
                 return result
 
 
+class MNode:
+	def __init__(self, item):
+		self.item = item
+		self.Nlist = []
+		if isinstance(item, BNode):
+			B2M(item)
+		
+	def B2M(self, Bnode):
+		if isinstance(Bnode, BNode):
+			self.item = Bnode.item
+			if Bnode.left:
+				self.Nlist.append(Bnode.left)
+			if Bnode.right:
+				self.Nlist.append(Bnode.right)
+	
+	def extend(self) -> BNode:
+		result = BTree()
+		result.add(BNode(self.item))
+		if not self.Nlist:
+			return result.root
+		
+		for x in self.Nlist:
+			result.add(x.extend())
+		
+		return result.root
+		
+	def add(self, node):
+		self.Nlist.append(node)
+		
+	def __str__(self):
+		return str(self.item)
+		
+	def node_id(self):
+		result = [self.item]
+		if self.Nlist:
+			for p in self.Nlist:
+				result = result + p
+				
+		return id(result) 	
+		
+	def __eq__(self, other):
+		if isinstance(other, MNode):
+			return self.node_id() == other.node_id()
+		return False
+		
+
+class MTree:
+	def __init__(self):
+		self.root = MNode('root')
+		
+
 class ValueTree:
     def __init__(self, value):
         self.stack = []
@@ -173,7 +224,7 @@ class ValueTree:
     def set_stack(self, stack):
         self.stack = stack
 
-    def to_stack(self, value):
+    def to_stack(self, value)                                                                                                                                                                                                                                                                                                                                                                                                                                                       :
         stack = []
         li = []
         if isinstance(value, str):
@@ -187,7 +238,10 @@ class ValueTree:
         i = 0
         while i < length:
             m = li[i]
-            if m.isnumeric() or m.islower():
+            if i == 0 and m in lever(1) :
+                stack.append('0')
+                stack.append(m)
+            elif m.isnumeric() or m.islower():
                 t = integrate(li[i:])
                 stack.append(t)
                 i += len(t)
@@ -235,7 +289,11 @@ class ValueTree:
                             self.stack.append(t)
                             t = stack_p.pop()
                         stack_p.append('(')
-                    stack_p.append(item)  # 弹出操作完成后将‘*/’入栈:
+                        stack_p.append(item)  # 弹出操作完成后将‘*/’入栈
+                elif item == '-' and stack_p[-1] == '-':
+                    stack_p.append('+')
+                elif item == '/' and stack_p[-1] == '/':
+                    stack_p.append('*')
                 else:
                     stack_p.append(item)  # 其余情况直接入栈（如当前字符为+，栈顶为+-
 
@@ -287,5 +345,6 @@ class ValueTree:
 
 
 if __name__ == '__main__':
-    a = ValueTree('2a*b+c*d^2')
+    a = ValueTree('-a-b-c')
+    print(a.stack)    
     print(a.tree)
