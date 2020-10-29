@@ -238,9 +238,10 @@ class ValueTree:
         i = 0
         while i < length:
             m = li[i]
-            if i == 0 and m in lever(1) :
+            if i == 0 and m == '-' :
                 stack.append('0')
                 stack.append(m)
+                i += 1
             elif m.isnumeric() or m.islower():
                 t = integrate(li[i:])
                 stack.append(t)
@@ -290,10 +291,10 @@ class ValueTree:
                             t = stack_p.pop()
                         stack_p.append('(')
                         stack_p.append(item)  # 弹出操作完成后将‘*/’入栈
-                elif item == '-' and stack_p[-1] == '-':
-                    stack_p.append('+')
-                elif item == '/' and stack_p[-1] == '/':
-                    stack_p.append('*')
+                # elif item == '-' and stack_p[0] == '-':
+                #    stack_p.append('+')
+                # elif item == '/' and stack_p[0] == '/':
+                #    stack_p.append('*')
                 else:
                     stack_p.append(item)  # 其余情况直接入栈（如当前字符为+，栈顶为+-
 
@@ -345,6 +346,6 @@ class ValueTree:
 
 
 if __name__ == '__main__':
-    a = ValueTree('-a-b-c')
+    a = ValueTree('1/2/3-4/5/6-7/8/9')
     print(a.stack)    
     print(a.tree)
